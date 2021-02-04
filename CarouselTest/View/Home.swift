@@ -16,12 +16,28 @@ struct Home: View {
             // Images...
             ForEach(1...4,id: \.self){ index in
                 
-                Image("p\(index)")
-                    .resizable()
-                    .frame(width: 400.0, height: 400.0)
-                    .aspectRatio(contentMode: .fill)
+                // Geometry reader for parralax effect
+                
+                GeometryReader{ read in
+                    
+                    Image("p\(index)")
+                        .resizable()
+                        .frame(width: 400.0, height: 400.0)
+                        .aspectRatio(contentMode: .fill)
 
-                    .cornerRadius(15)
+                }
+                .frame(height: 400.0)
+                .cornerRadius(15)
+                .padding(10)
+                .background(Color.white)
+                .cornerRadius(15)
+                //
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 5, y: 5 )
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: -5, y: 5 )
+                // decreasing width by padding
+                // so outer view only decreased
+                // inner image will be full width
+                .padding(.horizontal,25)
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
